@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:5.0.2
+    container_name: mongo502
+    ports:
+      - 29017:27017
+    volumes:
+      - mongo_db:/data/db
+      - mongo_configdb:/data/configdb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    restart: unless-stopped
+
+  mongo-express:
+    image: mongo-express:0.54.0
+    container_name: mongo-express054
+    ports:
+      - 8991:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+    restart: unless-stopped
+
+  arango:
+    image: arangodb:3.8.1
+    container_name: arango381
+    ports:
+      - 8529:8529
+    volumes:
+      - arango_data:/var/lib/arangodb3
+      - arango_apps:/var/lib/arangodb3-apps
+    environment:
+      ARANGO_ROOT_PASSWORD: password
+    restart: unless-stopped
+
+volumes:
+    mongo_db:
+      # external: true // Specify if you wish to create yourself
+    mongo_configdb:
+      # external: true // Specify if you wish to create yourself
+    arango_data:
+      # external: true // Specify if you wish to create yourself
+    arango_apps:
+      # external: true // Specify if you wish to create yourself
