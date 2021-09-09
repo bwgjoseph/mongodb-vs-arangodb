@@ -9,5 +9,4 @@ class MongodbVsArangodbApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
